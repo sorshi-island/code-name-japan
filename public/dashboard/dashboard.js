@@ -20,13 +20,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const tile = document.createElement('div');
             tile.classList.add('tile');
             tile.innerHTML = `
-                <h2>${quest.title}</h2>
-                <p>${quest.description}</p>
-                <p>Completed: ${quest.completed}</p>
-                <p>Release Date: ${quest.releaseDate}</p>
-                <p>Last Update: ${quest.lastUpdate}</p>
-                <button onclick="openQuest('${quest.path}')">Start Quest</button>
-            `;
+        <h2>${quest.title}</h2>
+        <p>${quest.description}</p>
+        <p>Completed: ${quest.completed}</p>
+        <p>Release Date: ${quest.releaseDate}</p>
+        <p>Last Update: ${quest.lastUpdate}</p>
+        <button onclick="openQuest('${quest.path}')">Start Quest</button>
+      `;
             pageElement.appendChild(tile);
         });
 
@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
         modalContent.innerHTML = '';
         modalContent.appendChild(adapter.questElement);
         modal.classList.remove('hidden');
+        adapter.startQuest();
     };
 });
 

@@ -6,7 +6,6 @@ let timer;
 let animationDuration = 2;  // Начальная длительность анимации
 let timerDuration = 10;
 
-
 const number1Element = document.getElementById('number1');
 const number2Element = document.getElementById('number2');
 const input1 = document.getElementById('input1');
@@ -15,8 +14,8 @@ const timerElement = document.getElementById('timer');
 const balanceElement = document.getElementById('balance');
 let ifGameStarted = false;
 
-const round1 = document.getElementById('round1')
-const round2 = document.getElementById('round2')
+const round1 = document.getElementById('round1');
+const round2 = document.getElementById('round2');
 
 function getRandomNumber(index = 9) {
     return Math.floor(Math.random() * index) + 1;
@@ -24,24 +23,26 @@ function getRandomNumber(index = 9) {
 
 function startGame() {
     generateNewNumbers();
-    updateTimer()
+    updateTimer();
 }
 
 function updateTimer() {
-    clearInterval(timer)
+    clearInterval(timer);
     timer = setInterval(() => {
-        minus1Second()
+        minus1Second();
         if (timeLeft <= 0) {
             endGame();
         }
     }, (timerDuration * 75));
 }
+
 function minus1Second() {
     timeLeft--;
-    timerElement.textContent = `${timeLeft}`
+    timerElement.textContent = `${timeLeft}`;
 }
 
 function generateNewNumbers() {
+    console.dir(123)
     number1 = getRandomNumber(4);
     number2 = getRandomNumber(4);
     animateNumbers(number1Element, number1);
@@ -65,21 +66,21 @@ function animateNumbers(element, finalNumber) {
 
     element.innerHTML = '';
     element.appendChild(numbersContainer);
-    numbersContainer.style.animation = `spin ${animationDuration*1.5}s cubic-bezier(0.25, 0.1, 0.25, 1)`;
+    numbersContainer.style.animation = `spin ${animationDuration * 1.5}s cubic-bezier(0.25, 0.1, 0.25, 1)`;
 
     setTimeout(() => {
         element.innerHTML = `<span>${finalNumber}</span>`;
     }, animationDuration * 200);
 }
-function changeBg () {
-    const currentBg = document.querySelector('.bg.active')
-    currentBg.classList.remove('active')
+
+function changeBg() {
+    const currentBg = document.querySelector('.bg.active');
+    currentBg.classList.remove('active');
 
     const allBgsList = document.getElementsByClassName('bg');
-    const bgLength = document.getElementsByClassName('bg').length;
+    const bgLength = allBgsList.length;
     const nexIndex = getRandomNumber(bgLength - 1);
     allBgsList[nexIndex].classList.add('active');
-
 }
 
 function getBalance() {
@@ -87,63 +88,60 @@ function getBalance() {
 }
 
 function showBalance(value) {
-    balanceElement.textContent = (getBalance()).toString()
+    balanceElement.textContent = (getBalance()).toString();
 }
 
 function indicateCorrect() {
-    timerElement.style.color = 'green'
+    timerElement.style.color = 'green';
     setTimeout(() => {
-        timerElement.style.color = 'darkslateblue'
-    }, 300)
+        timerElement.style.color = 'darkslateblue';
+    }, 300);
 }
 
 function indicateInCorrect() {
-    timerElement.style.color = 'red'
-    minus1Second()
+    timerElement.style.color = 'red';
+    minus1Second();
     setTimeout(() => {
-        timerElement.style.color = 'darkslateblue'
-    }, 300)
+        timerElement.style.color = 'darkslateblue';
+    }, 300);
 }
 
 function decreaseTimerBoost() {
     if (timerDuration > 1) {
-        updateTimer()
+        updateTimer();
         timerDuration--;
     }
-
 }
 
 function checkSum() {
     const sum1 = parseInt(input1.value);
     const sum2 = parseInt(input2.value);
-    const sum =  sum2;
+    const sum = sum2;
 
     if (!isNaN(sum2)) {
-
         if (sum === number1 + number2) {
             score++;
-            indicateCorrect()
+            indicateCorrect();
             if (score > 11) {
-                // Перейти на следующий этап
-                endGame()
+                endGame();
             } else {
                 if (animationDuration > 0.5) {
-                    animationDuration -= 0.1;  // Ускорение анимации
+                    animationDuration -= 0.1;
                 }
 
-                decreaseTimerBoost()
+                decreaseTimerBoost();
 
                 if (ifGameStarted === false) {
                     ifGameStarted = true;
                     startGame();
                 }
 
-                showBalance(score)
-                changeBg()
+                showBalance(score);
+                changeBg();
                 generateNewNumbers();
             }
         } else {
-            indicateInCorrect()
+            indicateInCorrect();
         }
     }
 }
@@ -151,13 +149,15 @@ function checkSum() {
 function endGame() {
     clearInterval(timer);
     round1.style.display = 'none';
-    round2.style.display = 'block';
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+console.dir('More eleven script loaded')
+
+function bind() {
+    console.dir('Bind for quest')
     balanceElement.addEventListener('change', () => {
-        console.dir(123)
-    })
+        console.dir(123);
+    });
 
     input1.addEventListener('input', () => {
         if (input1.value.length === 1) {
@@ -185,6 +185,4 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
         }
     });
-
-    generateNewNumbers();
-});
+}

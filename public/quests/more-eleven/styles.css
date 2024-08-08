@@ -6,18 +6,17 @@
 }
 
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f0f0f0;
-    font-family: Arial, sans-serif;
+
 }
 
 #round1 {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
     flex-direction: column;
-    margin-bottom: 150px;
 }
 
 #scene {
@@ -93,6 +92,7 @@ input[type=number] {
 }
 
 #score {
+    width: 300px;
     display: flex;
     justify-content: space-between;
 }

@@ -149,15 +149,20 @@ function checkSum() {
 function endGame() {
     clearInterval(timer);
     round1.style.display = 'none';
+    if (typeof subAdapter !== 'undefined' && typeof subAdapter.completeQuest === 'function') {
+        subAdapter.completeQuest();
+    }
 }
 
 console.dir('More eleven script loaded')
 
-function bind() {
+function bind(adapter) {
     console.dir('Bind for quest')
-    balanceElement.addEventListener('change', () => {
-        console.dir(123);
-    });
+    window.subAdapter = adapter;
+    //
+    // balanceElement.addEventListener('change', () => {
+    //     console.dir(123);
+    // });
 
     input1.addEventListener('input', () => {
         if (input1.value.length === 1) {

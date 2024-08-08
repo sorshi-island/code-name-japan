@@ -3,11 +3,14 @@ class QuestAdapter {
         this.questPath = questPath;
         this.questElement = null;
         this.subAdapter = null;
+        this.questId = null;
     }
 
     async loadQuest() {
         const response = await fetch(`${this.questPath}/index.html`);
         const html = await response.text();
+
+        this.questId = this.questPath.split('/').pop();
 
         const updatedHtml = this.updatePaths(html, this.questPath);
 
@@ -52,10 +55,29 @@ class QuestAdapter {
     startQuest() {
         if (this.subAdapter && typeof this.subAdapter.start === 'function') {
             this.subAdapter.start();
+        } else {
+            console.error("SubAdapter start function is not defined or subAdapter is not set.");
         }
     }
 
     setSubAdapter(subAdapter) {
         this.subAdapter = subAdapter;
+        if (this.subAdapter && typeof this.subAdapter.setQuestAdapter === 'function') {
+            this.subAdapter.setQuestAdapter(this);
+        } else {
+            console.error("SubAdapter setQuestAdapter function is not defined or subAdapter is not set.");
+        }
+    }
+
+    markQuestAsCompleted() {
+        let completedQuests = JSON.parse(localStorage.getItem('completedQuests')) || [];
+        if (!completedQuests.includes(this.questId)) {
+            completedQuests.push(this.questId);
+            localStorage.setItem('completedQuests', JSON.stringify(completedQuests));
+            // Обновляем информацию на главной странице
+            if (typeof window.updateCompletedQuests === 'function') {
+                window.updateCompletedQuests();
+            }
+        }
     }
 }

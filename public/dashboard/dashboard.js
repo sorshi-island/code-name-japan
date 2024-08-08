@@ -54,6 +54,30 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.classList.remove('hidden');
         adapter.startQuest();
     };
+
+    window.updateCompletedQuests = function() {
+        const completedQuests = JSON.parse(localStorage.getItem('completedQuests')) || [];
+        const questTiles = document.querySelectorAll('.tile');
+        questTiles.forEach(tile => {
+            const questId = tile.getAttribute('data-id');
+            if (completedQuests.includes(questId)) {
+                tile.classList.add('completed');
+            }
+        });
+    };
+
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Вызовите updateCompletedQuests при загрузке страницы
+    updateCompletedQuests();
+
+    const roadmap = [
+        // ваш массив квестов
+    ];
+
+    // Остальная часть вашего кода для генерации плиток квестов
+
 });
 
 // Импортируйте адаптер

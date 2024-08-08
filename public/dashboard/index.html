@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quest Roadmap</title>
+    <link rel="stylesheet" href="/dashboard/styles.css">
+</head>
+<body>
+<header>
+    <h1>My Quest Roadmap</h1>
+    <p>Completed Quests: <span id="completed-quests">0</span></p>
+</header>
+<div id="roadmap">
+    <!-- Pages will be injected here -->
+</div>
+<div id="render-area">
+    <!-- Selected quest will be rendered here -->
+</div>
+<div id="modal" class="hidden">
+    <div id="modal-content">
+        <button id="close-modal">Close</button>
+        <div id="modal-body">
+            <!-- Quest content will be injected here -->
+        </div>
+    </div>
+</div>
+<script src="/dashboard/dashboard.js" defer></script>
+</body>
+</html>

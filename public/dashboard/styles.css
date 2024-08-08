@@ -1,4 +1,3 @@
-/* General styles */
 body, html {
     margin: 0;
     padding: 0;
@@ -25,12 +24,12 @@ header {
 
 .page {
     display: flex;
-    flex-wrap: wrap;
     gap: 20px;
     margin-bottom: 40px;
 }
 
 .tile {
+    position: relative;
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -111,4 +110,15 @@ header {
 
 .hidden {
     visibility: hidden;
+}
+
+.completed-badge {
+    position: absolute;
+    right: 5px;
+    top: 1px;
+    visibility: hidden;
+}
+
+.tile.completed .completed-badge {
+    visibility: visible;
 }

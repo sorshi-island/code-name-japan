@@ -1,11 +1,36 @@
 document.addEventListener('DOMContentLoaded', () => {
+    /**
+     * Manually added list of quests
+     * @type {[{quests: [{path: string, releaseDate: string, lastUpdate: string, description: string, id: string, completed: number, title: string},{path: string, releaseDate: string, lastUpdate: string, description: string, id: string, completed: number, title: string},{path: string, releaseDate: string, lastUpdate: string, description: string, id: string, completed: number, title: string}], page: number}]}
+     */
     const roadmap = [
         {
             page: 1,
             quests: [
-                { id: 'basic-hack', title: 'Basic Hack', description: 'This is the "Basic Hack" quest', path: '/quests/basic-hack', completed: 5, releaseDate: '2024-01-01', lastUpdate: '2024-05-01' },
-                { id: 'more-eleven', title: 'More Eleven', description: 'This is the "More Eleven" quest', path: '/quests/more-eleven', completed: 10, releaseDate: '2023-12-01', lastUpdate: '2024-04-01' },
-                { id: 'third-quest', title: 'Third Quest', description: 'This quest is under development', path: '/quests/third-quest', completed: 0, releaseDate: '2024-06-01', lastUpdate: '2024-06-01' }
+                {
+                    id: 'basic-hack',
+                    title: 'Basic Hack',
+                    description: 'In this quest you in role of hacker.',
+                    path: '/quests/basic-hack',
+                    releaseDate: '2024-03-11',
+                    lastUpdate: '2024-03-11'
+                },
+                {
+                    id: 'more-eleven',
+                    title: 'More Eleven',
+                    description: 'This is the "More Eleven" quest',
+                    path: '/quests/more-eleven',
+                    releaseDate: '2023-08-06',
+                    lastUpdate: '2024-08-08'
+                },
+                {
+                    id: 'third-quest',
+                    title: 'Third Quest',
+                    description: 'This quest is under development',
+                    path: '/quests/third-quest',
+                    releaseDate: '2024-06-01',
+                    lastUpdate: '2024-06-01'
+                }
             ]
         }
         // Добавьте дополнительные страницы здесь
@@ -19,10 +44,11 @@ document.addEventListener('DOMContentLoaded', () => {
         page.quests.forEach(quest => {
             const tile = document.createElement('div');
             tile.classList.add('tile');
+            tile.setAttribute('data-id', quest.id)
             tile.innerHTML = `
+        <div class="completed-badge">⭐</div>
         <h2>${quest.title}</h2>
         <p>${quest.description}</p>
-        <p>Completed: ${quest.completed}</p>
         <p>Release Date: ${quest.releaseDate}</p>
         <p>Last Update: ${quest.lastUpdate}</p>
         <button onclick="openQuest('${quest.path}')">Start Quest</button>
@@ -33,10 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
         roadmapContainer.appendChild(pageElement);
     });
 
-    const completedQuestsElement = document.getElementById('completed-quests');
-    const completedQuestsCount = roadmap.reduce((acc, page) => acc + page.quests.filter(quest => quest.completed > 0).length, 0);
-    completedQuestsElement.textContent = completedQuestsCount;
-
     const modal = document.getElementById('modal');
     const modalContent = document.getElementById('modal-body');
     const closeModalButton = document.getElementById('close-modal');
@@ -46,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
         modalContent.innerHTML = '';
     });
 
-    window.openQuest = async function(path) {
+    window.openQuest = async function (path) {
         const adapter = new QuestAdapter(path);
         await adapter.loadQuest();
         modalContent.innerHTML = '';
@@ -55,8 +77,12 @@ document.addEventListener('DOMContentLoaded', () => {
         adapter.startQuest();
     };
 
-    window.updateCompletedQuests = function() {
+    window.updateCompletedQuests = function () {
         const completedQuests = JSON.parse(localStorage.getItem('completedQuests')) || [];
+
+        const headerBlock = document.getElementById('completed-quests')
+        headerBlock.textContent = completedQuests.length.toString();
+
         const questTiles = document.querySelectorAll('.tile');
         questTiles.forEach(tile => {
             const questId = tile.getAttribute('data-id');
@@ -66,17 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    // Вызовите updateCompletedQuests при загрузке страницы
     updateCompletedQuests();
-
-    const roadmap = [
-        // ваш массив квестов
-    ];
-
-    // Остальная часть вашего кода для генерации плиток квестов
 
 });
 

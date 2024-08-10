@@ -42,7 +42,6 @@ function minus1Second() {
 }
 
 function generateNewNumbers() {
-    console.dir(123)
     number1 = getRandomNumber(4);
     number2 = getRandomNumber(4);
     animateNumbers(number1Element, number1);

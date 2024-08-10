@@ -79,5 +79,6 @@ class QuestAdapter {
                 window.updateCompletedQuests();
             }
         }
+        closeQuest();
     }
 }

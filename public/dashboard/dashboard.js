@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="quest-general-info-left-panel-release-date">
                 Release Date: ${quest.releaseDate}
                   <div class="quest-additional-info">
-                   <p>${quest.description}</p>
+                   <p>Description: ${quest.description}</p>
                    <p>Last Update: ${quest.lastUpdate}</p>
                    <button class="quest-tile-start-button" onclick="openQuest('${quest.path}')">Start Quest</button>
                 </div>
@@ -104,6 +104,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     };
+
+    window.closeQuest = async function () {
+        modal.classList.add('hidden');
+        modalContent.innerHTML = '';
+    }
 
     updateCompletedQuests();
 

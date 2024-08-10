@@ -1,9 +1,32 @@
 :root {
+    /**
+    -    Для акцентов, таких как иконки или важные кнопки.
+	-    Для обозначения завершенных квестов (например, звездочка).
+     */
     --golden-treasure: #D4AF37;
+    /**
+    -    Фон для карточек или разделов сайта.
+	-    Основной цвет текста для заголовков.
+     */
     --deep-ocean: #2A4A7B;
+    /**
+    -    Фон для контента, такого как описание квеста.
+	-    Второстепенные элементы или бордюры.
+     */
     --ancient-parchment: #E6D5B8;
+    /**
+    -    Для кнопок или ссылок, которые требуют действия.
+	-    Для выделения важной информации.
+     */
     --hidden-gem: #8B5E34;
+    /**
+    -	Фон для ховеров и модальных окон.
+	-	Основной цвет текста.
+     */
     --mystic-shadow: #3B3B3B;
+    /**
+    - wrapper and header bg.
+     */
     --warm-white: #F9F6F1;
 }
 
@@ -27,6 +50,9 @@ body, html {
 }
 
 header {
+    position: sticky;
+    z-index: 3;
+    top: 0;
     height: 50px;
     background-color: var(--warm-white);
     color: var(--mystic-shadow);
@@ -50,9 +76,10 @@ header #project-name {
 }
 
 #roadmap {
-    background-color: var(--additional-bg-color);
+    background-color: var(--deep-ocean);
     flex: 1;
     overflow-y: auto;
+    height: 800px;
     padding: 20px;
 }
 
@@ -99,7 +126,8 @@ header #project-name {
 }
 
 .tile button:hover {
-    background-color: var(--accent-color);
+    background-color: var(--mystic-shadow);
+    color: var(--warm-white)
 }
 
 #render-area {
@@ -184,10 +212,15 @@ header #project-name {
 .quest-general-info > .quest-general-info-left-panel > .quest-general-info-left-panel-name {
     font-size: 17px;
     background-color: var(--ancient-parchment);
-    color: var(--mystic-shadow);
-    width: auto;
+    color: var(--deep-ocean);
+    width: calc(100%);
     position: absolute;
-    top: 5%;
+    top: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 40px;
+    padding: 5px;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -197,7 +230,7 @@ header #project-name {
     bottom: 30px;
     left: -1px;
     width: 186px;
-    height: 200px;
+    height: 150px;
     background-color: var(--ancient-parchment);
     color: var(--mystic-shadow);
     padding: 5px 10px;
@@ -205,7 +238,11 @@ header #project-name {
     transition: transform 0.4s ease;
     transform: translateY(100%);
     z-index: 2;
-    font-size: 15px;
+    font-size: 12px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .quest-general-info > .quest-logo {
@@ -222,19 +259,23 @@ header #project-name {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.65;
 }
 
 .quest-general-info p {
-    font-size: 15px;
+    font-size: 12px;
+    height: 15px;
 }
 
 .quest-additional-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
     opacity: 0;
     transform: translateY(10%);
     transition: opacity 0.4s ease, transform 0.4s ease;
     height: 0;
     overflow: hidden;
+    text-align: left;
 }
 
 .tile {
@@ -242,7 +283,7 @@ header #project-name {
 }
 /* Показ дополнительных данных и перемещение при наведении на карточку */
 .tile:hover .quest-general-info-left-panel-release-date {
-    transform: translateY(25%);
+    transform: translateY(45%);
 }
 
 .tile:hover .quest-additional-info {

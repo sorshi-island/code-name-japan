@@ -1,16 +1,11 @@
-class MoreElevenSubAdapter {
-
-    start() {
+class MoreElevenSubAdapter extends questAdapter {
+    startQuest() {
         bind(this)
         if (typeof generateNewNumbers === 'function') {
             generateNewNumbers();
         } else {
             console.error("Function generateNewNumbers not found.");
         }
-    }
-
-    setQuestAdapter(adapter) {
-        this.questAdapter = adapter;
     }
 
     completeQuest() {

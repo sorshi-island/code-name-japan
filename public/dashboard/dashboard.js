@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const questAdaptersMap = {
+        'web-quest': WebQuestSubAdapter,
+        'more-eleven': MoreElevenSubAdapter,
+        // 'third-quest': ThirdQuestSubAdapter
+    };
     /**
      * Manually added list of quests
      * @type {[{quests: [{path: string, releaseDate: string, lastUpdate: string, description: string, id: string, completed: number, title: string},{path: string, releaseDate: string, lastUpdate: string, description: string, id: string, completed: number, title: string},{path: string, releaseDate: string, lastUpdate: string, description: string, id: string, completed: number, title: string}], page: number}]}
@@ -8,10 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
             page: 1,
             quests: [
                 {
-                    id: 'basic-hack',
-                    title: 'Basic Hack',
+                    id: 'web-quest',
+                    title: 'Web Quest',
                     description: 'In this quest you in role of hacker.',
-                    path: '/quests/basic-hack',
+                    path: '/quests/web-quest',
                     releaseDate: '2024-03-11',
                     lastUpdate: '2024-03-11'
                 },
@@ -56,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
                   <div class="quest-additional-info">
                    <p>Description: ${quest.description}</p>
                    <p>Last Update: ${quest.lastUpdate}</p>
-                   <button class="quest-tile-start-button" onclick="openQuest('${quest.path}')">Start Quest</button>
+                   <button class="quest-tile-start-button" onclick="openQuest('${quest.path}', '${quest.id}')">Start Quest</button>
                 </div>
                 </div>
             </div>
@@ -81,8 +86,18 @@ document.addEventListener('DOMContentLoaded', () => {
         modalContent.innerHTML = '';
     });
 
-    window.openQuest = async function (path) {
-        const adapter = new QuestAdapter(path);
+    window.openQuest = async function (path, questId) {
+        const adapterClass = questAdaptersMap[questId] || QuestAdapter;
+
+        // Динамическое создание адаптера
+        let adapter;
+        try {
+            adapter = new adapterClass(path);
+        } catch (e) {
+            console.error(`Failed to create adapter for questId: ${questId}. Falling back to default QuestAdapter.`, e);
+            adapter = new QuestAdapter(path);
+        }
+
         await adapter.loadQuest();
         modalContent.innerHTML = '';
         modalContent.appendChild(adapter.questElement);

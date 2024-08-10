@@ -51,17 +51,20 @@ document.addEventListener('DOMContentLoaded', () => {
        <div class="quest-general-info">
             <div class="quest-general-info-left-panel">
                 <div class="quest-general-info-left-panel-name">${quest.title}</div>
-                <div class="quest-general-info-left-panel-release-date">Release Date: ${quest.releaseDate}</div>
+                <div class="quest-general-info-left-panel-release-date">
+                Release Date: ${quest.releaseDate}
+                  <div class="quest-additional-info">
+                   <p>${quest.description}</p>
+                   <p>Last Update: ${quest.lastUpdate}</p>
+                   <button class="quest-tile-start-button" onclick="openQuest('${quest.path}')">Start Quest</button>
+                </div>
+                </div>
             </div>
             <div class="quest-logo">
                 <img alt="logo" src="${quest.path}/logo.webp">
             </div>
        </div>
-        <div class="quest-additional-info">
-            <p>${quest.description}</p>
-            <p>Last Update: ${quest.lastUpdate}</p>
-        </div>
-        <button class="quest-tile-start-button" onclick="openQuest('${quest.path}')">Start Quest</button>
+        
       `;
             pageElement.appendChild(tile);
         });
